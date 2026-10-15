@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href = "static/css/question.css">
+    <link rel="icon" href="static/img/favicon.png" type="image/x-icon">
+    <title>Lemon,Questions</title>
+</head>
+<body>
+    <header>
+        <a href="ask.html">
+            <h1>AskLemon</h1>
+        </a>
+        <div class="header-search">
+            <input type="search" placeholder="Поиск">
+            <button>ASK!</button>
+        </div>
+        <div class="header-user-info">
+            <div class="header-user-actions">
+                <div>
+                    <a href="">Login</a>
+                    <a href="">Register</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="page-content">
+    <main class="questions">
+
+        <article class="question main-question">
+            <div class="question-voting">
+                <button type="button" class="vote-button" aria-label="Нравится">
+                    ▲
+                </button>
+                <span class="vote-count">5</span>
+                <button type="button" class="vote-button" aria-label="Не нравится">
+                    ▼
+                </button>
+            </div>
+
+            <div class="question-avatar">
+                <img src="static/img/favicon.png" alt="Аватар автора">
+            </div>
+
+            <div class="question-body">
+                <h3>
+                    <a href="question.html">Lorem?</a>
+                </h3>
+
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum eveniet neque obcaecati quo voluptatibus. Accusantium consequatur consequuntur delectus eius eligendi expedita id laudantium magni maxime nobis obcaecati perspiciatis quo, voluptates.
+                </p>
+                <div class="question-meta">
+                    <span>Теги:</span>
+                    <a href="#">larem?</a>
+                    <a href="#">lorem?</a>
+                </div>
+            </div>
+        </article>
+
+
+        <hr class="question-divider">
+
+
+        <article class="question">
+            <div class="question-voting">
+                <button type="button" class="vote-button" aria-label="Нравится">
+                    ▲
+                </button>
+                <span class="vote-count">5</span>
+                <button type="button" class="vote-button" aria-label="Не нравится">
+                    ▼
+                </button>
+            </div>
+
+            <div class="question-avatar">
+                <img src="static/img/favicon.png" alt="Аватар автора">
+            </div>
+
+            <div class="question-body">
+                <h3>
+                    <a href="question.html">Lorem?</a>
+                </h3>
+
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum eveniet neque obcaecati quo voluptatibus. Accusantium consequatur consequuntur delectus eius eligendi expedita id laudantium magni maxime nobis obcaecati perspiciatis quo, voluptates.
+                </p>
+                <label class="answer-correct">
+                <input type="checkbox">
+                Верный ли ответ?
+                </label>
+            </div>
+        </article>
+
+
+        <article class="question">
+            <div class="question-voting">
+                <button type="button" class="vote-button" aria-label="Нравится">
+                    ▲
+                </button>
+                <span class="vote-count">5</span>
+                <button type="button" class="vote-button" aria-label="Не нравится">
+                    ▼
+                </button>
+            </div>
+
+            <div class="question-avatar">
+                <img src="static/img/favicon.png" alt="Аватар автора">
+            </div>
+
+            <div class="question-body">
+                <h3>
+                    <a href="question.html">Lorem?</a>
+                </h3>
+
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum eveniet neque obcaecati quo voluptatibus. Accusantium consequatur consequuntur delectus eius eligendi expedita id laudantium magni maxime nobis obcaecati perspiciatis quo, voluptates.
+                </p>
+                <label class="answer-correct">
+                <input type="checkbox">
+                Верный ли ответ?
+                </label>
+            </div>
+        </article>
+
+        <hr class="question-divider">
+
+        <form class="answer-form">
+        <textarea
+            name="answer"
+            placeholder="Enter your answer here..."
+            rows="4"
+            required
+        ></textarea>
+
+        <button type="submit">Answer</button>
+        </form>
+
+
+    </main>
+
+
+
+    <aside class="sidebar">
+        <section class="popular-tags">
+            <h2>Popular Tags</h2>
+
+            <div class="tags">
+                <a href="#">python</a>
+                <a href="#">django</a>
+                <a href="#">MySQL</a>
+                <a href="#">perl</a>
+                <a href="#">Technopark</a>
+                <a href="#">Mail.Ru</a>
+            </div>
+        </section>
+
+        <section class="best-members">
+            <h2>Best Members</h2>
+            <ul>
+                <li><a href="#">Mr. Freeman</a></li>
+                <li><a href="#">Dr. House</a></li>
+                <li><a href="#">Bender</a></li>
+                <li><a href="#">Queen Victoria</a></li>
+                <li><a href="#">V. Pupkin</a></li>
+            </ul>
+        </section>
+    </aside>
+    </div>
+<footer class="site-footer">
+    <p>AskLemon — место, где можно задавать вопросы и делиться знаниями.</p>
+    <p>Находи ответы, помогай другим и обсуждай интересные темы.</p>
+    <p>&copy; 2026 AskLemon</p>
+</footer>
+</body>
+</html>
