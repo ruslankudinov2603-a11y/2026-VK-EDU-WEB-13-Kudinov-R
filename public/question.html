@@ -13,14 +13,16 @@
             <h1>AskLemon</h1>
         </a>
         <div class="header-search">
-            <input type="search" placeholder="Поиск">
-            <button>ASK!</button>
+            <form action="index.html" method="get" style="display: contents;">
+                <input type="search" name="q" placeholder="Поиск">
+            </form>
+            <button type="button" onclick="window.location.href='ask.html'">ASK!</button>
         </div>
         <div class="header-user-info">
             <div class="header-user-actions">
                 <div>
-                    <a href="">Login</a>
-                    <a href="">Register</a>
+                    <a href="login.html">Login</a>
+                    <a href="signup.html">Register</a>
                 </div>
             </div>
         </div>

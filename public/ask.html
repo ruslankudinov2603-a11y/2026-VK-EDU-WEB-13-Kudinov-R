@@ -13,14 +13,16 @@
             <h1>AskLemon</h1>
         </a>
         <div class="header-search">
-            <input type="search" placeholder="Поиск">
-            <button>ASK!</button>
+            <form action="index.html" method="get" style="display: contents;">
+                <input type="search" name="q" placeholder="Поиск">
+            </form>
+            <button type="button" onclick="window.location.href='ask.html'">ASK!</button>
         </div>
         <div class="header-user-info">
             <div class="header-user-actions">
                 <div>
-                    <a href="">Login</a>
-                    <a href="">Register</a>
+                    <a href="login.html">Login</a>
+                    <a href="signup.html">Register</a>
                 </div>
             </div>
         </div>
@@ -29,8 +31,7 @@
 
         <div class="page-content">
         <main class="ask-form">
-            <h2>New Questions</h2>
-
+            <h2>Ask a Question</h2>
             <form>
                 <div class="form-group">
                     <label for="question-title">Заголовок вопроса</label>
@@ -39,8 +40,12 @@
                         id="question-title"
                         name="title"
                         placeholder="Введите заголовок вопроса"
+                        minlength="5"
+                        maxlength="120"
                         required
+                        aria-describedby="title-hint"
                     >
+                    <small id="title-hint">От 5 до 120 символов.</small>
                 </div>
 
                 <div class="form-group">
@@ -49,9 +54,13 @@
                         id="question-text"
                         name="text"
                         rows="8"
+                        minlength="10"
+                        maxlength="5000"
                         placeholder="Опишите свой вопрос подробнее..."
                         required
+                        aria-describedby="text-hint"
                     ></textarea>
+                    <small id="text-hint">Опишите проблему подробно, минимум 10 символов.</small>
                 </div>
 
                 <div class="form-group">
@@ -61,7 +70,10 @@
                         id="question-tags"
                         name="tags"
                         placeholder="Например: python, django"
+                        required
+                        aria-describedby="tags-hint"
                     >
+                    <small id="tags-hint">Укажите хотя бы один тег.</small>
                 </div>
 
                 <button type="submit">ASK!</button>

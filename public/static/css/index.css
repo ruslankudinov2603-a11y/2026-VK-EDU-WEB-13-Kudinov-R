@@ -203,7 +203,6 @@ input[type="search"]::placeholder {
     margin-bottom: 10px;
 }
 
-
 .pagination {
     display: flex;
     align-items: center;

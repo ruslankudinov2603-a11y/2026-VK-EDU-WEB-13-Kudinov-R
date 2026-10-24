@@ -8,9 +8,9 @@ html, body {
 }
 
 body {
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
     color: #244B35;
 }
 
@@ -80,7 +80,6 @@ input[type="search"]::placeholder {
     color: #F9E900;
 }
 
-
 .page-content {
     display: flex;
     align-items: flex-start;
@@ -131,6 +130,14 @@ input[type="search"]::placeholder {
     resize: vertical;
 }
 
+.form-group small {
+    grid-column: 2;
+    margin-top: -6px;
+    color: #244B35;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
 .ask-form button {
     align-self: flex-start;
     padding: 8px 12px;
@@ -146,7 +153,6 @@ input[type="search"]::placeholder {
     background: #244B35;
     color: #F7DFAE;
 }
-
 
 .sidebar {
     flex: 0 0 260px;
@@ -179,18 +185,16 @@ input[type="search"]::placeholder {
     margin-bottom: 10px;
 }
 
-
 .site-footer {
+    margin-top: auto;
     padding: 20px 40px;
     border-top: 2px solid #244B35;
     background: #F7DFAE;
-    margin-top: auto;
 }
 
 .site-footer p {
     margin-bottom: 6px;
 }
-
 
 @media (max-width: 768px) {
     header {
@@ -220,4 +224,20 @@ input[type="search"]::placeholder {
     }
 
     .form-group {
-        grid-template-columns:
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .form-group label {
+        padding-top: 0;
+    }
+
+    .form-group small {
+        grid-column: 1;
+        margin-top: 0;
+    }
+
+    .site-footer {
+        padding: 20px;
+    }
+}

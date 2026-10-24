@@ -9,19 +9,21 @@
 </head>
 <body>
     <header>
-        <a href="ask.html">
+        <a href="index.html">
             <h1>AskLemon</h1>
         </a>
         <div class="header-search">
-            <input type="search" placeholder="Поиск">
-            <button>ASK!</button>
+            <form action="index.html" method="get" style="display: contents;">
+                <input type="search" name="q" placeholder="Поиск">
+            </form>
+            <button type="button" onclick="window.location.href='ask.html'">ASK!</button>
         </div>
         <div class="header-user-info">
             <img class="header-user-avatar" src="static/img/favicon.png" alt="lemon">
             <div class="header-user-actions">
                 <span>Lemon</span>
                 <div>
-                    <a href="">Settings</a>
+                    <a href="profile.html">Settings</a>
                     <a href="">Logout</a>
                 </div>
             </div>
