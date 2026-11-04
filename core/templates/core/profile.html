@@ -1,37 +1,37 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/css/profile.css">
-    <link rel="icon" href="static/img/favicon.png" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
     <title>AskLemon - Settings</title>
 </head>
 <body>
     <header>
-        <a href="index.html">
+        <a href="{% url 'index' %}">
             <h1>AskLemon</h1>
         </a>
 
         <div class="header-search">
-            <form action="index.html" method="get" style="display: contents;">
+            <form 	action="{% url 'index' %}" method="get" style="display: contents;">
                 <input type="search" name="q" placeholder="Поиск">
             </form>
-            <button type="button" onclick="window.location.href='ask.html'">ASK!</button>
+            <button type="button" onclick="window.location.href='{% url 'ask' %}'">ASK!</button>
         </div>
 
         <div class="header-user-info">
             <img
                 class="header-user-avatar"
-                src="static/img/favicon.png"
+                src="{% static 'img/favicon.png' %}"
                 alt="Аватар пользователя Lemon"
             >
             <div class="header-user-actions">
                 <span>Lemon</span>
                 <div>
-                    <a href="profile.html">Settings</a>
-                    <a href="index.html">Logout</a>
+                    <a 	href="{% url 'profile' %}">Settings</a>
+                    <a href="{% url 'index' %}">Logout</a>
                 </div>
             </div>
         </div>
@@ -41,7 +41,7 @@
         <main class="profile-form">
             <h2>Settings: Lemon</h2>
 
-            <form action="profile.html" method="get">
+            <form action="{% url 'profile' %}" method="get">
                 <div class="form-group">
                     <label for="login">Логин</label>
                     <input
@@ -83,7 +83,7 @@
                     <div class="avatar-fields">
                         <img
                             class="profile-avatar"
-                            src="static/img/favicon.png"
+                            src="{% static 'img/favicon.png' %}"
                             alt="Текущий аватар"
                         >
                         <input
@@ -104,12 +104,12 @@
                 <h2>Popular Tags</h2>
 
                 <div class="tags">
-                    <a href="#">python</a>
-                    <a href="#">django</a>
-                    <a href="#">MySQL</a>
-                    <a href="#">perl</a>
-                    <a href="#">Technopark</a>
-                    <a href="#">Mail.Ru</a>
+                    <a href="{% url 'tag' 'python' %}">python</a>
+                    <a href="{% url 'tag' 'django' %}">django</a>
+                    <a href="{% url 'tag' 'MySQL' %}">MySQL</a>
+                    <a href="{% url 'tag' 'perl' %}">perl</a>
+                    <a href="{% url 'tag' 'Technopark' %}">Technopark</a>
+                    <a href="{% url 'tag' 'Mail.Ru' %}">Mail.Ru</a>
                 </div>
             </section>
 

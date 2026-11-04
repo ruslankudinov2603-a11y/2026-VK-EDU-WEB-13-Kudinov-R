@@ -4,71 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/css/login.css">
-    <link rel="icon" href="static/img/favicon.png" type="image/png">
-    <title>AskLemon - Login</title>
+    <link rel="stylesheet" href="../../../static/css/index.css">
+    <link rel="icon" href="../../../static/img/favicon.png" type="image/png">
+    <title>AskLemon - New Questions</title>
 </head>
 <body>
     <header>
-        <a href="index.html">
+        <a href="../../../public/index.html">
             <h1>AskLemon</h1>
         </a>
 
         <div class="header-search">
-            <form action="index.html" method="get" style="display: contents;">
+            <form action="../../../public/index.html" method="get" style="display: contents;">
                 <input type="search" name="q" placeholder="Поиск">
             </form>
             <button type="button" onclick="window.location.href='ask.html'">ASK!</button>
         </div>
 
         <div class="header-user-info">
+            <img
+                class="header-user-avatar"
+                src="../../../static/img/favicon.png"
+                alt="Аватар пользователя Lemon"
+            >
             <div class="header-user-actions">
+                <span>Lemon</span>
                 <div>
-                    <a href="login.html">login</a>
-                    <a href="signup.html">signup</a>
+                    <a href="profile.html">Settings</a>
+                    <a href="../../../public/index.html">Logout</a>
                 </div>
             </div>
         </div>
     </header>
 
     <div class="page-content">
-
-<main class="login-form">
-    <h2>Login</h2>
-
-    <form action="#" method="get">
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input
-                type="email"
-                id="email"
-                name="email"
-                placeholder="Введите email"
-                autocomplete="email"
-                required
-            >
-        </div>
-
-        <div class="form-group">
-            <label for="password">Пароль</label>
-            <input
-                type="password"
-                id="password"
-                name="password"
-                placeholder="Введите пароль"
-                autocomplete="current-password"
-                required
-            >
-        </div>
-
-        <button type="submit">Войти</button>
-    </form>
-
-    <p class="login-note">
-        Нет аккаунта? <a href="signup.html">Зарегистрироваться</a>
-    </p>
-</main>
-
+        <main class="questions">
+            <div class="questions-header">
+                <h2>New Questions</h2>
+                <a href="../../../public/index.html">Hot Questions</a>
+            </div>
+        </main>
 
         <aside class="sidebar">
             <section class="popular-tags">

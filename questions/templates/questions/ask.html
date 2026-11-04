@@ -1,28 +1,29 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="stylesheet" href = "static/css/ask.css">
-    <link rel="icon" href="static/img/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/ask.css' %}">
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/x-icon">
     <title>Lemon,AskLemon</title>
 </head>
 <body>
     <header>
-        <a href="ask.html">
+        <a href="{% url 'index' %}">
             <h1>AskLemon</h1>
         </a>
         <div class="header-search">
-            <form action="index.html" method="get" style="display: contents;">
+            <form action="{% url 'index' %}" method="get" style="display: contents;">
                 <input type="search" name="q" placeholder="Поиск">
             </form>
-            <button type="button" onclick="window.location.href='ask.html'">ASK!</button>
+            <button type="button" onclick="window.location.href='{% url 'ask' %}'">ASK!</button>
         </div>
         <div class="header-user-info">
             <div class="header-user-actions">
                 <div>
-                    <a href="login.html">Login</a>
-                    <a href="signup.html">Register</a>
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'signup' %}">Register</a>
                 </div>
             </div>
         </div>
