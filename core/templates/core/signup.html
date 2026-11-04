@@ -1,31 +1,31 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/css/signup.css">
-    <link rel="icon" href="static/img/favicon.png" type="image/png">
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
     <title>AskLemon - Signup</title>
 </head>
 <body>
     <header>
-        <a href="index.html">
+        <a href="{% url 'index' %}">
             <h1>AskLemon</h1>
         </a>
 
         <div class="header-search">
-            <form action="index.html" method="get" style="display: contents;">
+            <form action="{% url 'index' %}" method="get" style="display: contents;">
                 <input type="search" name="q" placeholder="Поиск">
             </form>
-            <button type="button" onclick="window.location.href='ask.html'">ASK!</button>
+            <button type="button" onclick="window.location.href='{% url 'ask' %}'">ASK!</button>
         </div>
 
         <div class="header-user-info">
             <div class="header-user-actions">
                 <div>
-                    <a href="login.html">Login</a>
-                    <a href="signup.html">Signup</a>
+                    <a href="{% url 'login' %}">Login</a>
+                    <a href="{% url 'signup' %}">Signup</a>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
 <main class="signup-form">
     <h2>Registration</h2>
 
-    <form action="#" method="get">
+    <form action="#" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="login">Логин</label>
             <input
@@ -118,7 +118,7 @@
     </form>
 
     <p class="signup-note">
-        Уже есть аккаунт? <a href="login.html">Войти</a>
+        Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>
     </p>
 </main>
 
@@ -127,12 +127,12 @@
                 <h2>Popular Tags</h2>
 
                 <div class="tags">
-                    <a href="#">python</a>
-                    <a href="#">django</a>
-                    <a href="#">MySQL</a>
-                    <a href="#">perl</a>
-                    <a href="#">Technopark</a>
-                    <a href="#">Mail.Ru</a>
+                    <a href="{% url 'tag' 'python' %}">python</a>
+                    <a href="{% url 'tag' 'django' %}">django</a>
+                    <a href="{% url 'tag' 'MySQL' %}">MySQL</a>
+                    <a href="{% url 'tag' 'perl' %}">perl</a>
+                    <a href="{% url 'tag' 'Technopark' %}">Technopark</a>
+                    <a href="{% url 'tag' 'Mail.Ru' %}">Mail.Ru</a>
                 </div>
             </section>
 
