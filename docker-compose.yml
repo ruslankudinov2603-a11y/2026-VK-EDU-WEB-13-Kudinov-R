@@ -7,4 +7,27 @@ services:
     volumes:
       - .:/app
     env_file:
-      - .env
+      - .env.docker
+    depends_on:
+      - db
+    networks:
+      - asklemon-network
+
+  db:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_DB: asklemon
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - asklemon-network
+
+volumes:
+  postgres_data:
+
+networks:
+  asklemon-network:
+    driver: bridge

@@ -46,7 +46,7 @@
                 <button type="button" class="vote-button" aria-label="Нравится">
                     ▲
                 </button>
-                <span class="vote-count">5</span>
+                <span class="vote-count">{{ question.likes_count }}</span>
                 <button type="button" class="vote-button" aria-label="Не нравится">
                     ▼
                 </button>
@@ -66,14 +66,23 @@
                 </p>
 
                 <div class="question-meta">
-                    <a href="{% url 'question' question.id %}">Ответы (3)</a>
+                    <a href="{% url 'question' question.id %}">
+                        Ответы: {{ question.answers_count }}
+                    </a>
+
                     <span>Теги:</span>
-                    <a href="#">larem?</a>
-                    <a href="#">lorem?</a>
-                    <span class="question-time">1 час назад</span>
+                    {% for tag in question.tags.all %}
+                        <a href="{% url 'tag' tag.slug %}">{{ tag.name }}</a>
+                    {% empty %}
+                        <span>Нет тегов</span>
+                    {% endfor %}
+
+                    <span class="question-time">{{ question.created_at|timesince }} назад</span>
                 </div>
             </div>
         </article>
+        {% empty %}
+            <p>Пока нет вопросов. Будьте первым, кто задаст вопрос!</p>
         {% endfor %}
 
          <div class="pagination">

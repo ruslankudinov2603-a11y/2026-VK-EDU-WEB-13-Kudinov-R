@@ -22,3 +22,10 @@ Thumbs.db
 # Django
 /media/
 /static/
+
+# Environment variables
+.env.*
+!.env.example
+
+# Django generated files
+/staticfiles/
