@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.db.models import Count
 
 
-
 class QuestionManager(models.Manager):
 
     def with_counts(self):
@@ -86,6 +85,7 @@ class Answer(models.Model):
         verbose_name='Автор'
     )
     text = models.TextField(verbose_name='Текст')
+    is_correct = models.BooleanField(default=False, verbose_name='Правильный ответ')
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name='Дата создания'
@@ -113,6 +113,11 @@ class QuestionLike(models.Model):
         related_name='likes',
         verbose_name='Вопрос'
     )
+    value = models.SmallIntegerField(
+        choices=[(1, 'Лайк'), (-1, 'Дизлайк')],
+        default=1,
+        verbose_name='Тип голоса'
+    )
 
     class Meta:
         verbose_name = 'Лайк вопроса'
@@ -135,6 +140,11 @@ class AnswerLike(models.Model):
         on_delete=models.CASCADE,
         related_name='likes',
         verbose_name='Ответ'
+    )
+    value = models.SmallIntegerField(
+        choices=[(1, 'Лайк'), (-1, 'Дизлайк')],
+        default=1,
+        verbose_name='Тип голоса'
     )
 
     class Meta:

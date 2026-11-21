@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'web', 'testserver']
 
 
 # Application definition
@@ -135,7 +135,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Media
 
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # Email
@@ -149,3 +149,5 @@ MAILERS = {
 
 if DEBUG:
     INTERNAL_IPS = ['127.0.0.1']
+
+LOGIN_URL = '/login/'

@@ -24,26 +24,44 @@
         <div class="header-user-info">
             <div class="header-user-actions">
                 <div>
-                    <a href="{% url 'login' %}">Login</a>
-                    <a href="{% url 'signup' %}">Register</a>
+                    {% if user.is_authenticated %}
+                        <span>{{ user.username }}</span>
+                        <a href="{% url 'profile' %}">Profile</a>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    {% else %}
+                        <a href="{% url 'login' %}">Login</a>
+                        <a href="{% url 'signup' %}">Register</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </header>
 
-    <div class="page-content">
-        <main class="questions">
-            <article class="question main-question">
-                <div class="question-voting">
-                    <button type="button" class="vote-button" aria-label="Нравится">
-                        ▲
-                    </button>
-                    <span class="vote-count">{{ question.likes.count }}</span>
-                    <button type="button" class="vote-button" aria-label="Не нравится">
-                        ▼
-                    </button>
-                </div>
+        <div class="page-content">
+            <main class="questions">
+                <article class="question main-question">
+                    <div class="question-voting">
+                        {% if user.is_authenticated %}
+                            <button
+                                type="button"
+                                class="vote-button"
+                                data-url="{% url 'question_like' question.id %}"
+                                aria-label="Нравится"
+                            >▲</button>
+                        {% endif %}
 
+                        <span class="likes-count">{{ question.likes_count }}</span>
+                        <span class="dislikes-count">{{ question.dislikes_count }}</span>
+
+                        {% if user.is_authenticated %}
+                            <button
+                                type="button"
+                                class="vote-button"
+                                data-url="{% url 'question_like' question.id %}"
+                                aria-label="Не нравится"
+                            >▼</button>
+                        {% endif %}
+                    </div>
                 <div class="question-avatar">
                     <img src="{% static 'img/favicon.png' %}" alt="Аватар автора">
                 </div>
@@ -67,15 +85,30 @@
             <hr class="question-divider">
 
             {% for answer in answers %}
-                <article class="question">
+                <article class="question" id="answer-{{ answer.id }}">
                     <div class="question-voting">
-                        <button type="button" class="vote-button" aria-label="Нравится">
-                            ▲
-                        </button>
-                        <span class="vote-count">{{ answer.likes.count }}</span>
-                        <button type="button" class="vote-button" aria-label="Не нравится">
-                            ▼
-                        </button>
+                        {% if user.is_authenticated %}
+                            <button
+                                type="button"
+                                class="vote-button"
+                                data-url="{% url 'answer_like' answer.id %}"
+                                data-type="answer"
+                                aria-label="Нравится"
+                            >▲</button>
+                        {% endif %}
+
+                        <span class="likes-count">{{ answer.likes_count }}</span>
+                        <span class="dislikes-count">{{ answer.dislikes_count }}</span>
+
+                        {% if user.is_authenticated %}
+                            <button
+                                type="button"
+                                class="vote-button"
+                                data-url="{% url 'answer_like' answer.id %}"
+                                data-type="answer"
+                                aria-label="Не нравится"
+                            >▼</button>
+                        {% endif %}
                     </div>
 
                     <div class="question-avatar">
@@ -87,10 +120,19 @@
 
                         <p>{{ answer.text }}</p>
 
+                        {% if user == question.author %}
                         <label class="answer-correct">
-                            <input type="checkbox">
+                            <input
+                                type="checkbox"
+                                class="correct-checkbox"
+                                data-url="{% url 'mark_correct' answer.id %}"
+                                {% if answer.is_correct %}checked{% endif %}
+                            >
                             Верный ли ответ?
                         </label>
+                    {% elif answer.is_correct %}
+                        <p>Правильный ответ</p>
+                    {% endif %}
                     </div>
                 </article>
             {% empty %}
@@ -113,17 +155,16 @@
 
             <hr class="question-divider">
 
-            <form class="answer-form" method="post">
-                {% csrf_token %}
-                <textarea
-                    name="answer"
-                    placeholder="Enter your answer here..."
-                    rows="4"
-                    required
-                ></textarea>
-
-                <button type="submit">Answer</button>
-            </form>
+            {% if user.is_authenticated %}
+                <form class="answer-form" method="post">
+                    {% csrf_token %}
+                    {{ form.text }}
+                    {{ form.text.errors }}
+                    <button type="submit">Answer</button>
+                </form>
+            {% else %}
+                <p>Чтобы ответить на вопрос, <a href="{% url 'login' %}?next={{ request.path }}">войдите в аккаунт</a>.</p>
+            {% endif %}
 
         </main>
 
@@ -159,5 +200,70 @@
         <p>Находи ответы, помогай другим и обсуждай интересные темы.</p>
         <p>&copy; 2026 AskLemon</p>
     </footer>
+<script>
+    document.querySelectorAll('.correct-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', async () => {
+            try {
+                const response = await fetch(checkbox.dataset.url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+
+                if (!response.ok) {
+                    checkbox.checked = !checkbox.checked;
+                    alert('Не удалось изменить правильный ответ.');
+                    return;
+                }
+
+                const data = await response.json();
+
+                if (!data.success) {
+                    checkbox.checked = !checkbox.checked;
+                    alert(data.error);
+                }
+            } catch (error) {
+                checkbox.checked = !checkbox.checked;
+                alert('Ошибка соединения с сервером.');
+            }
+        });
+    });
+</script>
 </body>
+<script>
+document.querySelectorAll('.vote-button[data-url]').forEach(button => {
+    button.addEventListener('click', async () => {
+        const value = button.getAttribute('aria-label') === 'Нравится' ? 1 : -1;
+
+        const formData = new FormData();
+        formData.append('value', value);
+
+        try {
+            const response = await fetch(button.dataset.url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: formData
+            });
+
+            if (!response.ok) {
+                alert('Не удалось проголосовать. Попробуйте ещё раз.');
+                return;
+            }
+
+            const data = await response.json();
+            const container = button.parentElement;
+
+            container.querySelector('.likes-count').textContent = data.likes_count;
+            container.querySelector('.dislikes-count').textContent = data.dislikes_count;
+        } catch (error) {
+            alert('Ошибка соединения с сервером.');
+        }
+    });
+});
+</script>
 </html>

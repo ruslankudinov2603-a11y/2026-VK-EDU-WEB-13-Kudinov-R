@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
@@ -15,23 +16,23 @@
         </a>
 
         <div class="header-search">
-            <form 	action="{% url 'index' %}" method="get" style="display: contents;">
+            <form action="{% url 'index' %}" method="get" style="display: contents;">
                 <input type="search" name="q" placeholder="Поиск">
             </form>
-            <button type="button" onclick="window.location.href='{% url 'ask' %}'">ASK!</button>
+            <button type="button">ASK!</button>
         </div>
 
         <div class="header-user-info">
             <img
                 class="header-user-avatar"
-                src="{% static 'img/favicon.png' %}"
-                alt="Аватар пользователя Lemon"
+                src="{% if profile.avatar %}{{ profile.avatar.url }}{% else %}{% static 'img/favicon.png' %}{% endif %}"
+                alt="Аватар пользователя"
             >
             <div class="header-user-actions">
-                <span>Lemon</span>
+                <span>{{ user.username }}</span>
                 <div>
-                    <a 	href="{% url 'profile' %}">Settings</a>
-                    <a href="{% url 'index' %}">Logout</a>
+                    <a href="{% url 'profile' %}">Settings</a>
+                    <a href="{% url 'logout' %}">Logout</a>
                 </div>
             </div>
         </div>
@@ -39,19 +40,25 @@
 
     <div class="page-content">
         <main class="profile-form">
-            <h2>Settings: Lemon</h2>
+            <h2>Settings: {{ user.username }}</h2>
 
-            <form action="{% url 'profile' %}" method="get">
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="success-message">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+
+            <form action="{% url 'profile' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
                 <div class="form-group">
                     <label for="login">Логин</label>
                     <input
                         type="text"
                         id="login"
-                        name="login"
-                        value="lemon"
-                        minlength="3"
-                        maxlength="30"
-                        required
+                        name="username"
+                        value="{{ user.username }}"
+                        readonly
                     >
                 </div>
 
@@ -61,37 +68,43 @@
                         type="email"
                         id="email"
                         name="email"
-                        value="lemon@lemon.com"
+                        value="{{ user_data.email }}"
                         required
                     >
                 </div>
 
                 <div class="form-group">
-                    <label for="nickname">Никнейм</label>
+                    <label for="first_name">Имя</label>
                     <input
                         type="text"
-                        id="nickname"
-                        name="nickname"
-                        value="Lemon"
-                        maxlength="50"
+                        id="first_name"
+                        name="first_name"
+                        value="{{ user_data.first_name }}"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="last_name">Фамилия</label>
+                    <input
+                        type="text"
+                        id="last_name"
+                        name="last_name"
+                        value="{{ user_data.last_name }}"
                         required
                     >
                 </div>
 
                 <div class="form-group avatar-group">
-                    <label for="avatar">Аватар</label>
+                    <label for="{{ profile_form.avatar.id_for_label }}">Аватар</label>
                     <div class="avatar-fields">
                         <img
                             class="profile-avatar"
-                            src="{% static 'img/favicon.png' %}"
+                            src="{% if profile.avatar %}{{ profile.avatar.url }}{% else %}{% static 'img/favicon.png' %}{% endif %}"
                             alt="Текущий аватар"
                         >
-                        <input
-                            type="file"
-                            id="avatar"
-                            name="avatar"
-                            accept="image/*"
-                        >
+                        {{ profile_form.avatar }}
+                        {{ profile_form.avatar.errors }}
                     </div>
                 </div>
 
@@ -102,7 +115,6 @@
         <aside class="sidebar">
             <section class="popular-tags">
                 <h2>Popular Tags</h2>
-
                 <div class="tags">
                     <a href="{% url 'tag' 'python' %}">python</a>
                     <a href="{% url 'tag' 'django' %}">django</a>
